@@ -1,0 +1,17 @@
+[Unit]
+Description=MQTT-driven dynamic firewall blocker (iptables/ipset)
+After=network-online.target mosqitto.service
+Wants=network-online.target
+Requires=mosquitto.service
+
+[Service]
+Type=simple
+User=root
+ExecStartPre=/bin/sh -c '/sbin/ipset list attacker_block >/dev/null 2>&1 || /sbin/ipset create attacker_block hash:ip'
+ExecStart=/usr/bin/python3 /opt/mqtt_blocker.py
+Restart=always
+RestartSec=2
+SysLogIdentifier=mqtt-blocker
+
+[Install]
+WantedBy=multi-user.target
