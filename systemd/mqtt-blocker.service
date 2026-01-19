@@ -11,7 +11,7 @@ ExecStartPre=/bin/sh -c '/sbin/ipset list attacker_block >/dev/null 2>&1 || /sbi
 ExecStart=/usr/bin/python3 /opt/mqtt_blocker.py
 Restart=always
 RestartSec=2
-SysLogIdentifier=mqtt-blocker
+SyslogIdentifier=mqtt-blocker
 
 [Install]
 WantedBy=multi-user.target
