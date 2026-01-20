@@ -41,6 +41,29 @@ The system is implemented using three Debian virtual machines:
 
 ---
 
+## Bastion Firewall Design
+
+The firewall VM also functions as an **SSH bastion host (jump host)** for the
+internal victim network.
+
+Direct administrative access (SSH) from the attacker network to victim hosts
+is explicitly prohibited. All SSH access to internal hosts must traverse the
+firewall, enforcing a single controlled entry point.
+
+### Bastion Policy
+
+- Attacker → Victim SSH: **Blocked**
+- Attacker → Firewall SSH: **Allowed**
+- Firewall → Victim SSH: **Allowed**
+
+This ensures that:
+- All administrative access crosses the firewall
+- The firewall acts as a choke point for monitoring and enforcement
+- Adaptive blocking at the firewall protects **all internal hosts**, not only
+  the initially targeted system
+
+---
+
 ## Core Components
 
 ### `suri_mqtt_publisher.py`
@@ -67,6 +90,9 @@ Runs on the firewall VM.
 6. Subsequent attacker traffic is dropped
 
 This demonstrates **collaborative detection and adaptive enforcement**.
+When deployed as a bastion firewall, adaptive blocking at the gateway
+immediately protects all internal hosts behind it, reducing the blast radius
+of detected attacks.
 
 ---
 
@@ -100,3 +126,16 @@ The `setup/` directory contains scripts to configure each VM:
 Run the appropriate script on each VM as root:
 ```bash
 sudo bash setup/<script_name>.sh
+
+---
+
+## Evaluation Direction
+
+The system enables comparison between:
+
+- Static firewall / bastion rules
+- IDS-only detection without enforcement
+- Collaborative IDS–firewall adaptive reconfiguration
+
+Metrics include detection-to-block latency, residual attacker access after
+first alert, and protection of additional internal hosts.
