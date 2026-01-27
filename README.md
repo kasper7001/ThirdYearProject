@@ -35,6 +35,16 @@ The system is implemented using three Debian virtual machines:
 - IP: `10.0.3.2`
 - Publishes alert metadata (attacker IP, signature, timestamp) via MQTT
 
+### Additional Internal Host (Victim 2)
+- Represents a non-IDS internal system
+- IP: `10.0.3.3`
+- Runs no detection components
+- Accessible only via the firewall bastion
+
+This host is used to evaluate whether adaptive firewall reconfiguration
+triggered by detection on one host automatically protects other internal
+systems behind the bastion.
+
 ### Attacker VM
 - IP: `10.0.1.2`
 - Used to generate test traffic (ping, nmap)
@@ -110,6 +120,10 @@ Network interfaces must be configured manually in VirtualBox:
 - Internal network (victim): `10.0.3.2/24`
 - Default gateway: `10.0.3.1`
 
+#### Additional Internal Host (Victim 2)
+- Internal network (victim): `10.0.3.3/24`
+- Default gateway: `10.0.3.1`
+
 #### Attacker VM
 - Internal network (attacker): `10.0.1.2/24`
 - Default gateway: `10.0.1.1`
@@ -126,6 +140,7 @@ The `setup/` directory contains scripts to configure each VM:
 Run the appropriate script on each VM as root:
 ```bash
 sudo bash setup/<script_name>.sh
+```
 
 ---
 
@@ -139,3 +154,7 @@ The system enables comparison between:
 
 Metrics include detection-to-block latency, residual attacker access after
 first alert, and protection of additional internal hosts.
+
+The bastion architecture ensures that adaptive responses at the firewall
+reduce the blast radius of attacks by protecting internal hosts that are not
+directly monitored by the IDS.
