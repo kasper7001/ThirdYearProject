@@ -1,0 +1,10 @@
+trial,detected,blocked,ipset_contains_attacker,victim2_protected,notes
+02,yes,yes,yes,yes,"fast.log sid 1000001; ipset contains attacker"
+03,yes,yes,yes,yes,"fast.log sid 1000001; ipset contains attacker"
+04,yes,yes,yes,yes,"fast.log sid 1000001; ipset contains attacker"
+05,yes,yes,yes,yes,"fast.log sid 1000001; ipset contains attacker"
+06,yes,yes,yes,yes,"fast.log sid 1000001; ipset contains attacker"
+07,yes,yes,yes,yes,"fast.log sid 1000001; ipset contains attacker"
+08,yes,yes,yes,yes,"fast.log sid 1000001; ipset contains attacker"
+09,yes,yes,yes,yes,"fast.log sid 1000001; ipset contains attacker"
+10,yes,yes,yes,yes,"fast.log sid 1000001; ipset contains attacker"

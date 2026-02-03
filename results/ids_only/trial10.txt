@@ -1,0 +1,16 @@
+Trial: 10
+Config: IDS-only
+
+[Firewall] mqtt-blocker active?
+Sun  1 Feb 14:18:42 GMT 2026
+inactive
+
+[Firewall] ipset attacker_block:
+Name: attacker_block
+Type: hash:ip
+Revision: 6
+Header: family inet hashsize 1024 maxelem 65536 timeout 3600 bucketsize 12 initval 0x07b982e2
+Size in memory: 216
+References: 1
+Number of entries: 0
+Members:
