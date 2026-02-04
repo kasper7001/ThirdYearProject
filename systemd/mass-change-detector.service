@@ -1,0 +1,13 @@
+[Unit]
+Description=Mass File Change Detector (HIDS simulation)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/bin/bash /opt/mass-change-detector.sh
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target
