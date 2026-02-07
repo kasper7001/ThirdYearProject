@@ -1,0 +1,13 @@
+[Unit]
+Description=HIDS MQTT Blocker (hids/alerts → ipset)
+After=mosquitto.service network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/bin/bash /opt/hids-mqtt-blocker.sh
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target

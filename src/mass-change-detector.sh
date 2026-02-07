@@ -12,15 +12,12 @@ VICTIM_IP="$(ip -4 addr show | awk '/inet / {print $2}' | grep -v '^127' | cut -
 
 
 get_attacker_ip() {
-  # Grabs the most recent SSH remote IP from auth logs
-  # Works even if no interactive TTY is present.
-  awk '
-    /sshd/ && /Accepted/ {
-      for (i=1; i<=NF; i++) if ($i=="from") { print $(i+1); exit }
-    }
-  ' <(tac /var/log/auth.log 2>/dev/null) 2>/dev/null || echo "unknown"
+  if [[ -f /run/last_attacker_ip ]]; then
+    cat /run/last_attacker_ip
+  else
+    echo "unknown"
+  fi
 }
-
 declare -a TIMES=()
 
 publish_alert() {
