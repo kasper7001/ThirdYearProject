@@ -1,0 +1,11 @@
+#!/bin/bash
+set -e
+
+DENYLIST="/home/git/denylist.txt"
+
+if [ -n "${KEY_ID:-}" ] && grep -q "^$KEY_ID$" "$DENYLIST"; then
+    echo "Push rejected: identity $KEY_ID is denylisted."
+    exit 1
+fi
+
+exit 0

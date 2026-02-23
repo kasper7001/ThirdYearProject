@@ -1,0 +1,11 @@
+[Unit]
+Description=Repo Adaptive Enforcement Service
+After=network.target
+
+[Service]
+ExecStart=/opt/repo-enforcer.sh
+Restart=always
+User=root
+
+[Install]
+WantedBy=multi-user.target
