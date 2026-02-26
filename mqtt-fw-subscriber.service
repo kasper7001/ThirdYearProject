@@ -1,0 +1,11 @@
+[Unit]
+Description=MQTT subscriber to apply iptables blocks
+After=network.target mosquitto.service
+
+[Service]
+ExecStart=/usr/local/bin/mqtt_fw_subscriber.sh
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target
